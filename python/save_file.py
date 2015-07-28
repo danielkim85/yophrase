@@ -40,11 +40,11 @@ if "access_token" in form.keys():
             inserted_id = cursor.fetchall()[0][0]
             cursor.close();
             conn.close();
-            
+
             #filename will be UID after isnerting into the database
-            fn = os.path.basename(str(inserted_id) + png)
-            open('files/' + fn, 'wb').write(fileitem.file.read())
-            message = 'The file http://dev.yophrase.com/python/files/' + fn + ' was uploaded successfully'
+            fn = os.path.basename(str(inserted_id) + "." + ext)
+            open('../upload/' + fn, 'wb').write(fileitem.file.read())
+            message = 'The file http://dev.yophrase.com/upload/' + fn + ' was uploaded successfully'
             print message
         else:
            print "illegal access"
