@@ -1,12 +1,25 @@
 <html>
 	<head>
 		<title>YoPhrase</title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="index.js"></script>
+        <style type="text/css">
+            #upload{
+                display:none;
+            }
+        </style>
 	</head>
 	<body>
-		<h1>Coming soon!</h1>
-        <form enctype="multipart/form-data" action="/python/save_file.py" method="post">
-            <p>File: <input type="file" name="file"></p>
+        <form id="upload" enctype="multipart/form-data" action="/python/save_file.py" method="post">
+            <p>File: <input type="file" name="file" id="file"></p>
             <p><input type="submit" value="Upload"></p>
+            <input type="hidden" id="access_token" name="access_token" />
         </form>
+        
+        <div id="login-panel">
+            <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+            <div id="status">
+            </div>            
+        </div>
 	</body>
 </html>
