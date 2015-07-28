@@ -1,0 +1,6 @@
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `ext` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
