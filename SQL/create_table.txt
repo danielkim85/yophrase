@@ -1,0 +1,22 @@
+photos
+	id
+	source_id (img url ID)
+	created_by
+	updated_by
+	timestamp
+
+
+comments
+	id
+	text
+	created_by
+	updated_by
+	timestamp
+
+votes
+	id
+	photo_id
+	action
+	created_by
+	updated_by
+	timestamp
