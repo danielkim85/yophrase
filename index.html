@@ -1,25 +1,50 @@
 <html>
 	<head>
 		<title>YoPhrase</title>
+        <link rel="stylesheet" href="/import/uikit-2.21.0/css/uikit.min.css" />
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="/import/uikit-2.21.0/js/uikit.min.js"></script>
 		<script type="text/javascript" src="index.js"></script>
         <style type="text/css">
             #upload{
                 display:none;
             }
+            #login-panel div{
+                float:left;
+                margin-right:10px;
+            }
         </style>
 	</head>
 	<body>
-        <form id="upload" enctype="multipart/form-data" action="/python/save_file.py" method="post">
-            <p>File: <input type="file" name="file" id="file"></p>
-            <p><input type="submit" value="Upload"></p>
-            <input type="hidden" id="access_token" name="access_token" />
-        </form>
-        
-        <div id="login-panel">
-            <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
-            <div id="status">
-            </div>            
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
+            <h1>YoPhrase</h1>
+            <h2>Prototype alpha 1.0</h2>
+            <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                <div id="login-panel">
+                    <div class="fb-login-button" data-max-rows="1" data-size="small" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+                    <div id="status">
+                    </div>            
+                </div>
+            </div>
+            <div class="uk-block uk-block-secondary uk-contrast">
+                <div class="uk-container">
+                    <h3>Upload your favorite moment!</h3>
+                    <div class="uk-grid uk-grid-match" data-uk-grid-margin="">
+                        <div class="uk-width-medium-1-1">
+                            <div class="uk-panel">
+                                <form id="upload" enctype="multipart/form-data" action="/python/save_file.py" method="post">
+                                    <p><input type="submit" value="Upload"></p>
+                                    <input type="hidden" id="access_token" name="access_token" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+
         </div>
 	</body>
 </html>

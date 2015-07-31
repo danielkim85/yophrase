@@ -77,30 +77,17 @@ function init(start) {
     FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
     document.getElementById('status').innerHTML =
-    'Thanks for logging in, ' + response.name + '!';
+    'Welcome, ' + response.name + '!';
   });
     $("#access_token").val(ACCESS_TOKEN);
+    console.info(ACCESS_TOKEN);
     $("#upload").show();
   }
   else{
       $("#upload").hide();
   }
 }
-/*
-function test_fb(){
-    console.info(ACCESS_TOKEN);
-    fd = $('#file')[0].files[0];
-    console.info(fd);
-    $.ajax({
-        type: "POST",
-        url: "./python/save_file.py",
-        data: { access_token: ACCESS_TOKEN, file:fd}
-    })
-    .done(function( msg ) {
-        console.info(msg);
-    }); 
-}
-*/
+
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
