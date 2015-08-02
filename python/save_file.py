@@ -4,6 +4,8 @@ import cgitb; cgitb.enable()
 import facebook
 import MySQLdb
 import config
+import json
+from os import path
 
 print "Content-Type: text/html\n"
 form = cgi.FieldStorage()
@@ -14,7 +16,8 @@ if "access_token" in form.keys():
     my_id = profile['id'];
     if my_id == None or my_id == "":
         #illegal access, exit immeidately.
-        print "illegal access"
+        ret = {"code":-1,"msg":"Illegal access"};
+        print json.dumps(ret);
     else:
         #juicy stuff here.
         
@@ -43,12 +46,18 @@ if "access_token" in form.keys():
 
             #filename will be UID after isnerting into the database
             fn = os.path.basename(str(inserted_id) + "." + ext)
-            open('../upload/' + fn, 'wb').write(fileitem.file.read())
-            message = 'The file http://dev.yophrase.com/upload/' + fn + ' was uploaded successfully'
-            print message
+            script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+            rel_path = "../upload/" + fn
+            abs_file_path = os.path.join(script_dir, rel_path)
+            open(abs_file_path, 'wb').write(fileitem.file.read())
+            message = '/upload/' + fn;
+            ret = {"code":1,"msg":message};
+            print json.dumps(ret);
         else:
-           print "illegal access"
+            ret = {"code":-1,"msg":"Illegal access"};
+            print json.dumps(ret);
 
 else:
     #illegal access, exit immediately
-    print "illegal access"
+    ret = {"code":-1,"msg":"Illegal access"};
+    print json.dumps(ret);

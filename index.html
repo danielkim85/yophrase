@@ -1,9 +1,10 @@
 <html>
 	<head>
 		<title>YoPhrase</title>
-        <link rel="stylesheet" href="/import/uikit-2.21.0/css/uikit.min.css" />
+        <link rel="stylesheet" href="./import/uikit-2.21.0/css/uikit.min.css" />
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="/import/uikit-2.21.0/js/uikit.min.js"></script>
+        <script type="text/javascript" src="http://malsup.github.io/jquery.blockUI.js"></script>
+        <script src="./import/uikit-2.21.0/js/uikit.min.js"></script>
 		<script type="text/javascript" src="index.js"></script>
         <style type="text/css">
             #upload{
@@ -32,10 +33,11 @@
                     <div class="uk-grid uk-grid-match" data-uk-grid-margin="">
                         <div class="uk-width-medium-1-1">
                             <div class="uk-panel">
-                                <form id="upload" enctype="multipart/form-data" action="/python/save_file.py" method="post">
-                                    <p><input type="submit" value="Upload"></p>
+                                <div id="upload">
+                                    <p><input name="file" type="file" id="file" /></p>
+                                    <p><input type="submit" value="Upload" id="upload_button"></p>
                                     <input type="hidden" id="access_token" name="access_token" />
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

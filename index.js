@@ -80,7 +80,6 @@ function init(start) {
     'Welcome, ' + response.name + '!';
   });
     $("#access_token").val(ACCESS_TOKEN);
-    console.info(ACCESS_TOKEN);
     $("#upload").show();
   }
   else{
@@ -89,14 +88,45 @@ function init(start) {
 }
 
 function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 $(document).ready(function(){
-   $("#submit").click(function(){
-    test_fb();  
-   });
+  if($("#file").val() == "")
+    $("#upload_button").hide();
+  else
+    $("#upload_button").show();
+
+  $("#file").change(function(){
+    if($(this).val() == ""){
+      $("#upload_button").hide();
+    }
+    else
+      $("#upload_button").show();
+  });
+
+  $("#upload_button").click(function(){
+    $('#upload').block({ message: null }); 
+    var formData = new FormData();
+    formData.append('file', $('#file')[0].files[0]);
+    formData.append("access_token",$("#access_token").val());
+      $.ajax({
+       url : './python/save_file.py',
+       type : 'POST',
+       data : formData,
+       processData: false,  // tell jQuery not to process the data
+       contentType: false,  // tell jQuery not to set contentType
+       dataType: "json",
+       success : function(json) {
+         alert(json.msg);
+         if(json.code == 1){
+            $("#file").val("");
+         }
+          $('#upload').unblock();
+       }
+    });
+  });
 });
