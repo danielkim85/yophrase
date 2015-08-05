@@ -1,14 +1,50 @@
-// Load the http module to create an http server.
-var http = require('http');
+// call the packages we need
+var express    = require('express');        // call express
+var app        = express();                 // define our app using express
+var bodyParser = require('body-parser');
+var config = require('./config');
+var mysql      = require('mysql');
 
-// Configure our HTTP server to respond with Hello World to all requests.
-var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello World\n");
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var port = process.env.PORT || 8000;        // set our port
+
+// ROUTES FOR OUR API
+// =============================================================================
+var router = express.Router();              // get an instance of the express Router
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });
+	var connection = mysql.createConnection({
+	  host     : config.db.host,
+	  user     : config.db.user,
+	  password : config.db.pwd
+	});
+
+	connection.connect();
+
+	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+	  if (err) throw err;
+	  console.log('The solution is: ', rows[0].solution);
+	});
+
+	connection.end();
 });
 
-// Listen on port 8000, IP defaults to 127.0.0.1
-server.listen(8000);
+// more routes for our API will happen here
 
-// Put a friendly message on the terminal
-console.log("Server running at http://127.0.0.1:8000/");
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+
+//external modules
+require('./users')(router);
+app.use('/', router);
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
