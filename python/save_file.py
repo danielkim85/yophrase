@@ -6,6 +6,8 @@ import MySQLdb
 import config
 import json
 from os import path
+import PIL
+from PIL import Image
 
 print "Content-Type: text/html\n"
 form = cgi.FieldStorage()
@@ -35,7 +37,7 @@ if "access_token" in form.keys():
         fileitem_splitted = str(fileitem.filename).split('.')
         ext = fileitem_splitted[len(fileitem_splitted)-1]
         allowed_ext = ['png','bmp','jpg']
-        if fileitem.filename and ext in allowed_ext:
+        if fileitem.filename and ext.lower() in allowed_ext:
             conn = MySQLdb.connect (host = config.DB_HOST, user = config.DB_USER, passwd = config.DB_PWD, db = config.DB_NAME)
             cursor = conn.cursor ();
             args=(my_id,ext,);
@@ -50,6 +52,14 @@ if "access_token" in form.keys():
             rel_path = "../upload/" + fn
             abs_file_path = os.path.join(script_dir, rel_path)
             open(abs_file_path, 'wb').write(fileitem.file.read())
+            basewidth = 800
+            img = Image.open(abs_file_path)
+            (width, height) = img.size
+            if width > basewidth:
+                wpercent = (basewidth / float(img.size[0]))
+                hsize = int((float(img.size[1]) * float(wpercent)))
+                img = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+                img.save(abs_file_path)
             message = '/upload/' + fn;
             ret = {"code":1,"msg":message};
             print json.dumps(ret);
