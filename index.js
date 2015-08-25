@@ -74,6 +74,7 @@ function init(start) {
   //initiate
   if(start){
     console.log('Welcome!  Fetching your information.... ');
+    console.log(ACCESS_TOKEN);
     FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
     document.getElementById('status').innerHTML =
