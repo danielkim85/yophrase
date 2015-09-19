@@ -1,0 +1,35 @@
+.hidden, .template{
+	display:none;
+}
+#upload-panel{
+    background-color:#eee;
+    height:300px;
+}
+#login-panel{
+    margin-top:10px;
+    float:right;
+}
+#login-panel div{
+    float:left;
+    margin-right:10px;
+}
+#login-panel #status{
+    font-size:11px;
+}
+.uk-navbar-nav a{
+	cursor:pointer !important;
+}
+.container{
+	display:none;
+}
+.photo-box{
+	padding-bottom:25px;
+}
+.thumbnail-action i{
+  float:right;
+  margin-top:10px;
+  cursor:pointer;
+}
+.uk-position-cover{
+  cursor:pointer;
+}
