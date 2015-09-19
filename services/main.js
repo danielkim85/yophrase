@@ -14,7 +14,7 @@ global.dbConfig = {
 		password : config.db.pwd,
 		database : config.db.dbname
 };
-global.GetFBId = function(req,res,callback){
+global.GetFBId = function(req,res,callback,opt){
     var queryObject = url.parse(req.url,true).query;
    	var accessToken = queryObject.access_token;
     FB.api('me', {
@@ -23,8 +23,7 @@ global.GetFBId = function(req,res,callback){
         if(!result || result.error) {
             return res.send(500, 'error');
         }
-        console.info(result);
-        return callback(result.id,res);
+        return callback(result.id,res,opt);
     });
 	
 }
@@ -60,6 +59,7 @@ router.get('/', function(req, res) {
 //external modules
 require('./users')(router);
 require('./photos')(router);
+require('./comments')(router);
 app.use('/', router);
 
 // START THE SERVER

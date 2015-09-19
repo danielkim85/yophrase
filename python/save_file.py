@@ -36,8 +36,10 @@ if "access_token" in form.keys():
         # Test if the file was uploaded
         fileitem_splitted = str(fileitem.filename).split('.')
         ext = fileitem_splitted[len(fileitem_splitted)-1]
-        allowed_ext = ['png','bmp','jpg']
+        allowed_ext = ['png','bmp','jpg','gif']
         if fileitem.filename and ext.lower() in allowed_ext:
+
+            #db stuff
             conn = MySQLdb.connect (host = config.DB_HOST, user = config.DB_USER, passwd = config.DB_PWD, db = config.DB_NAME)
             cursor = conn.cursor ();
             args=(my_id,ext,);
@@ -61,7 +63,7 @@ if "access_token" in form.keys():
                 img = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
                 img.save(abs_file_path)
             message = '/upload/' + fn;
-            ret = {"code":1,"msg":message};
+            ret = {"code":1,"msg":message,"id":inserted_id};
             print json.dumps(ret);
         else:
             ret = {"code":-1,"msg":"Illegal access"};
