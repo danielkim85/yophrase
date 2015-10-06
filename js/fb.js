@@ -76,9 +76,9 @@ function init(start) {
     console.log(ACCESS_TOKEN);
     init_();
     FB.api('/me', function(response) {
-    document.getElementById('status').innerHTML =
-    'Welcome, ' + response.name + '!';
-  });
+      document.getElementById('status').innerHTML =
+      'Welcome, ' + response.name + '!';
+    });
     $("#access_token").val(ACCESS_TOKEN);
     $("#upload").show();
   }

@@ -33,3 +33,28 @@
 .uk-position-cover{
   cursor:pointer;
 }
+.uk-modal-dialog{
+  margin-top:100px;
+  background-color:transparent;
+  box-shadow:none;
+}
+.comments{
+  color:white;
+  margin-top:5px;
+}
+.comments .text{
+  margin-right:10px;
+}
+.comments i{
+  cursor:pointer;
+}
+.fb-user{
+  margin-right:10px;
+  text-decoration:bold;
+}
+.uk-modal-dialog legend{
+  color:white;
+}
+.uk-modal-dialog .comment-text{
+  width:250px;
+}

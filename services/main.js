@@ -14,6 +14,7 @@ global.dbConfig = {
 		password : config.db.pwd,
 		database : config.db.dbname
 };
+
 global.GetFBId = function(req,res,callback,opt){
     var queryObject = url.parse(req.url,true).query;
    	var accessToken = queryObject.access_token;
@@ -25,7 +26,6 @@ global.GetFBId = function(req,res,callback,opt){
         }
         return callback(result.id,res,opt);
     });
-	
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,22 +39,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
-	var connection = mysql.createConnection({
-	  host     : config.db.host,
-	  user     : config.db.user,
-	  password : config.db.pwd
-	});
-
-	connection.connect();
-
-	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-	  if (err) throw err;
-	  console.log('The solution is: ', rows[0].solution);
-	});
-
-	connection.end();
 });
-
 
 //external modules
 require('./users')(router);

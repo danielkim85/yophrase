@@ -5,7 +5,6 @@ function LoadUpload(){
   });
 
   $("#file").change(function(){
-    console.info("dilaog pop");
     if($(this).val() != ""){
       LoadPreview(this);
       uploadDetail.show();
@@ -36,7 +35,9 @@ function LoadUpload(){
         if(json.code == 1){
             $("#file").val("");
          }
-         InsertComment(imageId,$("#upload-detail #comment").val(),uploadDetail);
+        InsertComment(imageId,$("#upload-detail #comment").val(),function(){
+          uploadDetail.hide();    
+        });
        }
     });
   });

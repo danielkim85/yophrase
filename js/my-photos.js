@@ -35,11 +35,37 @@ function LoadMyPhotos(){
 }
 
 function MyPhotosLoadComments(imgId){
-  console.info(imgId);
+  $("#modal-" + imgId + " .comments").remove();
   LoadComments(imgId,function(data){
     for(var i = 0; i < data.length; i++){
-      console.info(data[i]);
+      var obj = $(".comments:first").clone();
+      obj.find(".text").html(data[i].comment);
+      obj.find(".fb-user").html(data[i].owner);
+      obj.attr("commentId",data[i].id);
+      obj.show();
+      $(".uk-modal-dialog").append(obj);
     }
+    LoadFBProfile($(".uk-modal-dialog"));
+    $(".comment-submit").unbind("click");
+    $(".comment-submit").click(function(){
+      var that = $(this);
+      var comment = $(this).parent().find(".comment-text").val();
+      if($.trim(comment) == ""){
+        alert("Invalid comment");
+      }
+      else{
+        that.parent().find(".comment-text").val("");
+        InsertComment(imgId,comment,function(){
+          MyPhotosLoadComments(imgId);   
+        });
+      }
+    });
+    $(".comments i").click(function(){
+        var commentId = $(this).parent().attr("commentId");
+        DeleteComment(commentId,function(){
+          MyPhotosLoadComments(imgId);   
+        });
+    });
   });
 }
 

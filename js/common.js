@@ -44,17 +44,24 @@ function LoadMenu(go){
   //}
 }
 
-function InsertComment(photoId,comment,uploadDetail){
+function InsertComment(photoId,comment,callback){
   $.ajax({
     url : './services/comments/' + photoId + '?access_token=' + ACCESS_TOKEN,
     type : 'POST',
     data : JSON.stringify({comment:comment}),
     contentType: "application/json",  // tell jQuery not to set contentType
     dataType: "json",
-    success : function(json) {
-      console.info(json)
-      uploadDetail.hide();
-    }
+    success : callback
+  });
+}
+
+function DeleteComment(commentId,callback){
+  $.ajax({
+    url : './services/comments/' + commentId + '?access_token=' + ACCESS_TOKEN,
+    type : 'DELETE',
+    contentType: "application/json",  // tell jQuery not to set contentType
+    dataType: "json",
+    success : callback
   });
 }
 
@@ -67,4 +74,18 @@ function LoadComments(imageId,callback){
     dataType: "json",
     success : callback
   });
+}
+
+function LoadFBProfile(target){
+  target.find(".fb-user").each(function(){
+    var that = $(this);
+    var id = $(this).html();
+    FB.api('/' + id , function(response) {
+      var obj = $(".fb-user-plate:first").clone();
+      obj.attr("href",response.link);
+      obj.html(response.name);
+      obj.show();
+      that.html(obj);
+    });
+  }); 
 }

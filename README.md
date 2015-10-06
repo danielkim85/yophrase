@@ -14,18 +14,25 @@ http://dev.yophrase.com
 
 - Single photo operation
 
-`GET` /services/photos/user/{id||"me"}
+`GET` /services/photos/user/{id || "me"}?access_token=1234
 
 - Photos uploaded by a user
-- If "me" is provided instead of ID, ID is looked up.
+- If "me" is provided as an ID, ID is looked up.
   - access_token is required
 
 ### Comments
+`GET` /services/comments/{image-id}
 
-`GET | POST | PUT | DELETE` /services/comments/comment/{id}
+- Get comments tied to a image
 
-- Single comment operation
+`POST` /services/comments/{image-id}
 
-`GET` /services/comments/photo/{id}
+{"comment":"hello,comment!"}
 
-- Comments tied to a photo
+- Posts a comment to an image
+
+`DELETE` /services/comments/{comment-id}?access_token=1234
+
+- Deletes a comment
+
+
