@@ -1,5 +1,6 @@
 *.pyc
-*DS_Store
+*.DS_Store
+*._Readme.md
 config.py
 config.js
 upload
