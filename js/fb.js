@@ -1,5 +1,6 @@
 // This is called with the results from from FB.getLoginStatus().
 var ACCESS_TOKEN = null;
+var USERID = null;
 function statusChangeCallback(response) {
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
@@ -73,13 +74,12 @@ function init(start) {
 
   //initiate
   if(start){
-    console.log(ACCESS_TOKEN);
     init_();
     FB.api('/me', function(response) {
+      USERID = response.id;
       document.getElementById('status').innerHTML =
       'Welcome, ' + response.name + '!';
     });
-    $("#access_token").val(ACCESS_TOKEN);
     $("#upload").show();
   }
   else{

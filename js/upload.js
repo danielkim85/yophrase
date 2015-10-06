@@ -22,7 +22,7 @@ function LoadUpload(){
     $('#upload-detail .uk-modal-dialog').block({ message: null }); 
     var formData = new FormData();
     formData.append('file', $('#file')[0].files[0]);
-    formData.append("access_token",$("#access_token").val());
+    formData.append("access_token",ACCESS_TOKEN);
       $.ajax({
       url : './python/save_file.py',
       type : 'POST',

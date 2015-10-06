@@ -42,6 +42,8 @@ function MyPhotosLoadComments(imgId){
       obj.find(".text").html(data[i].comment);
       obj.find(".fb-user").html(data[i].owner);
       obj.attr("commentId",data[i].id);
+      if(data[i].owner == USERID)
+        obj.find("i").show();
       obj.show();
       $(".uk-modal-dialog").append(obj);
     }

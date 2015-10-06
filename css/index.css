@@ -39,7 +39,7 @@
   box-shadow:none;
 }
 .comments{
-  color:white;
+  color:black;
   margin-top:5px;
 }
 .comments .text{
@@ -53,8 +53,18 @@
   text-decoration:bold;
 }
 .uk-modal-dialog legend{
-  color:white;
+  color:black;
 }
 .uk-modal-dialog .comment-text{
   width:250px;
+}
+.uk-open .uk-modal-dialog{
+  background-color:white;
+  padding:20px;
+}
+.uk-modal-dialog .uk-form{
+  margin-top:20px;
+}
+.uk-thumbnail{
+  width:600px;
 }
