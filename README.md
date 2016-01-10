@@ -31,6 +31,12 @@ http://dev.yophrase.com
 
 - Posts a comment to an image
 
+`POST` /services/comments/{comment-id}/like
+
+{"value":"1 || 0"}
+
+- Likes or unlikes a comment
+
 `DELETE` /services/comments/{comment-id}?access_token=1234
 
 - Deletes a comment

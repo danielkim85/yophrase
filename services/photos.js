@@ -26,7 +26,6 @@ function GetPhoto(photoId,res){
 }
 
 function DeletePhoto(userId,res,photoId){
-	console.info("deleting " + userId + " " + photoId);
 	var connection = mysql.createConnection(dbConfig);
 	connection.connect();
 	var data = [{id:photoId},{owner:userId}];
@@ -36,6 +35,24 @@ function DeletePhoto(userId,res,photoId){
 	});
 	connection.end();
 }
+
+function GetFriendsPhotos(data,res){
+	var o = new Array();
+	for(var i = 0; i < data.length; i++){
+		o.push({"id":data[i].id});
+	}
+	var connection = mysql.createConnection(dbConfig);
+	connection.connect();
+	var arr = o.map( function(el) { return el.id; });
+	arr = arr.join(",");
+	connection.query('select * from images where owner in (' + arr + ')', function(err, rows, fields) {
+		if (err) throw err;
+		var json = JSON.stringify(rows);
+		res.end(json);
+	});
+	connection.end();
+}
+
 
 module.exports = function(router){
 	router.get('/photos/:entity/:id', function(req, res) {
@@ -50,6 +67,9 @@ module.exports = function(router){
 				break;
 			case "photo":
 				GetPhoto(id,res)
+				break;
+			case "friends":
+				GetFriends(req,res,GetFriendsPhotos);
 				break;
 			default:
 				res.send(400, 'Invalid entity');

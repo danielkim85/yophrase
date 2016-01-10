@@ -45,8 +45,9 @@
 .comments .text{
   margin-right:10px;
 }
-.comments i{
+.comments i, .like{
   cursor:pointer;
+  color:blue;
 }
 .fb-user{
   margin-right:10px;
@@ -67,4 +68,23 @@
 }
 .uk-thumbnail{
   width:600px;
+  height:300px;
+}
+.uk-thumbnail figure{
+  width:100%;
+  height:290px;
+  text-align:center;
+}
+.photo-thumb{
+  width:100px;
+  height:100px;
+  background-size: 120px !important;
+}
+
+/* homepage specific */
+#homepage-container .friends-moments .uk-thumbnail{
+  height:150px;
+}
+#homepage-container .friends-moments .uk-thumbnail figure{
+  height:140px;
 }

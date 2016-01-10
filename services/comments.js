@@ -37,6 +37,18 @@ function GetComments(imageId,res){
 	connection.end();
 }
 
+function LikeComment(userId,res,commentId,value){
+	var connection = mysql.createConnection(dbConfig);
+	connection.connect();
+	//var data = [{comment_id:commentId},{owner:userId},{like:value},{like:value}];
+	var data = [commentId,userId,value,value];
+	connection.query('insert into likes(comment_id,owner,`like`) values(?,?,?) on duplicate key update `like`=?;', data, function(err, rows, fields) {
+		if (err) throw err;
+		res.end("success");
+	});
+	connection.end();
+}
+
 module.exports = function(router){
 	router.post('/comments/:imageId', function(req, res) {
 		var imageId = req.params.imageId;
@@ -48,5 +60,19 @@ module.exports = function(router){
 	}).delete('/comments/:commentId', function(req, res) {
 		var commentId = req.params.commentId;
 		GetFBId(req,res,DeleteComment,{commentId:commentId});
-	});
+	}).post('/comments/:commentId/:action/:id',function(req,res){
+		var action = req.params.action;
+		var commentId = req.params.commentId;
+		var value = req.body.value;
+		switch(action){
+			case "like" :
+				GetFBId(req,res,LikeComment,commentId,value);
+				break;
+			default:
+				res.send(400, 'Invalid entity');
+				break;
+		}
+		
+		
+	});;
 }

@@ -9,23 +9,36 @@ var FB = require('fb');
 
 // global defs
 global.dbConfig = {
-		host     : config.db.host,
-		user     : config.db.user,
-		password : config.db.pwd,
-		database : config.db.dbname
+	host     : config.db.host,
+	user     : config.db.user,
+	password : config.db.pwd,
+	database : config.db.dbname
 };
 
-global.GetFBId = function(req,res,callback,opt){
-    var queryObject = url.parse(req.url,true).query;
-   	var accessToken = queryObject.access_token;
-    FB.api('me', {
-        access_token:   accessToken
-    }, function (result) {
-        if(!result || result.error) {
-            return res.send(500, 'error');
-        }
-        return callback(result.id,res,opt);
-    });
+global.GetFBId = function(req,res,callback,opt,opt2){
+  var queryObject = url.parse(req.url,true).query;
+ 	var accessToken = queryObject.access_token;
+  FB.api('me', {
+      access_token:   accessToken
+  }, function (result) {
+      if(!result || result.error) {
+          return res.send(500, 'error');
+      }
+      return callback(result.id,res,opt,opt2);
+  });
+}
+
+global.GetFriends = function(req,res,callback){
+  var queryObject = url.parse(req.url,true).query;
+  var accessToken = queryObject.access_token;
+  FB.api('me/friends', {
+      access_token:   accessToken
+  }, function (result) {
+      if(!result || result.error) {
+          return res.send(500, 'error');
+      }
+      return callback(result.data,res);
+  });   
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
